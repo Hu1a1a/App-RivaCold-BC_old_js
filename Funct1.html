@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./Style.css">
+    <title>RivaColdSelect - Ficha Tecnica</title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h1 class="display-1">Consulta Ficha Técnica</h1>
+        <hr class="hr4">
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-striped" id="table_FT" style="text-align: left; vertical-align: middle;">
+                    <tbody id="table_FT_body"></tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <select class="form-select" id="list_type" onchange="SeleccionarGama()">
+            <option value="Eq">Equipo completo</option>
+            <option value="Evap">Solo evaporador</option>
+            <option value="Cond">Central y condensador</option></select>
+                    <select class="form-select" id="list_gama" onchange="SeleccionarModelo()"></select>
+                    <select class="form-select" id="list_modelo" onchange="FichaTecnica()"></select>
+                </div>
+                <div class="row">
+                    <table class="table table-striped" id="table_PC" style="text-align: left;vertical-align: middle;">
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody id="table_PC_body">
+                            <tr></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar fixed-bottom" style="height:30px;">
+            <div class="position-absolute top-0 start-50 translate-middle">
+                <button onclick="window.location.href='./Index.html '">
+                    <i class="bi bi-house-door" style="color: black;padding:0;border:none;background:none;font-size: 40px;">
+                    </i>
+                </button>
+            </div>
+        </nav>
+
+    </div>
+    <script src="./Funct1.js"></script>
+</body>
+
+</html>

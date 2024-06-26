@@ -1,0 +1,36 @@
+{
+    "name": "rivacoldselect",
+    "version": "1.1.0",
+    "CompanyName": "BASIC CONECTION SYSTEMS S.L.",
+    "description": "RivaColdSelect Program from BC-SYSTEMS",
+    "main": "Main.js",
+    "scripts": {
+        "start": "electron .",
+        "packager": "electron-packager .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
+    },
+    "author": "YYZ",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^20.1.0",
+        "electron-builder": "^23.3.3",
+        "electron-packager": "^15.5.1"
+    },
+    "dependencies": {
+        "bootstrap": "^5.2.0",
+        "bootstrap-icons": "^1.9.1",
+        "gd-sprest": "^7.2.1",
+        "node-adodb": "^5.0.3",
+        "node-sp-auth": "^3.0.7",
+        "request-promise": "^4.2.6"
+    },
+    "build": {
+        "extraResources": [
+            {
+                "from": "./node_modules/node-adodb/lib/adodb.js",
+                "to": "adodb.js"
+            }
+        ]
+    }
+}

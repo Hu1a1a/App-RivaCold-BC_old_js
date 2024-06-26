@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./Style.css">
+    <title>RivaColdSelect - Función comparación producto</title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h1 class="display-1">Consulta equivalencia</h1>
+        <hr class="hr4">
+        <div class="row">
+            <div class="col-6">
+                <h5>Comparativa Marca A</h5>
+                <select class="form-select" id="list_marcaA" onchange="SeleccionarProveedor()">
+                    <option value="RivaCold">RivaCold</option>
+                    <option value="IntarCon">IntarCon</option>
+                    <option value="Zanotti">Zanotti</option>
+                    <option value="Kide">Kide</option>
+                    <option value="Otro">Otros proveedores</option>
+                    <option value="Personalizado">Personalizado</option>
+                </select>
+                <select class="form-select" id="list_type" onchange="SeleccionarProveedor()">
+                    <option value="Eq">Equipo completo</option>
+                    <option value="Evap">Evaporador</option>
+                    <option value="Cond">Condensador</option>
+                    <option value="Central">Central</option>
+                </select>
+                <select class="form-select" id="list_modelo" onchange="SeleccionarModelo()"></select>
+
+            </div>
+            <div class="col-6">
+                <h5>Comparativa Marca B</h5>
+                <select class="form-select" id="list_marcaB" onchange="SeleccionarProveedor()">
+                    <option value="RivaCold">RivaCold</option>
+                    <option value="IntarCon">IntarCon</option>
+                    <option value="Zanotti">Zanotti</option>
+                    <option value="Kide">Kide</option>
+                    <option value="Otro">Otros proveedores</option>
+                </select>
+                <select class="form-select" id="list_gama" onchange="SeleccionarGama()"></select>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Comparativa" onclick="ComparativaParametro()">Personalizar</button>
+                <button data-bs-toggle="modal" data-bs-target="#Buscador" style="color: black;padding:none;border:none;background:none;font-size: 25px;outline:none;text-decoration:none;vertical-align: middle;">
+                    <i class="bi bi-search"><a style="font-size: small;">Buscar</a>
+                    </i>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-7">
+                        <table class="table table-striped" id="table_price">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Precio Marca A</th>
+                                    <th scope="col">Precio Marca B</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table_price_body">
+                                <tr></tr>
+                            </tbody>
+                        </table>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="MostrarPF" onchange="DatosEquivalencia()">
+                            <label class="form-check-label" for="flexCheckDefault">Mostrar las potencias frigoríficas no disponibles.</label>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <table class="table table-striped" id="table_type">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Configuración de la comparativa</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table_type_body">
+                                <tr></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-striped" id="table_PF">
+                        <thead>
+                            <tr>
+                                <th scope="col">Temperatura Ambiente</th>
+                                <th scope="col">Temperatura de Cámara</th>
+                                <th scope="col">Potencia Frigorífica Marca A</th>
+                                <th scope="col">Potencia Frigorífica Marca B</th>
+                                <th scope="col">% Diferencia de Marca B/A</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_PF_body">
+                            <tr></tr>
+                        </tbody>
+                    </table>
+                    <dt style="font-size:x-small;vertical-align:sub;">Recomendación de equivalencia: es equivalente segun ensayo técnico de laboratorio igualar la temperatura ambiente de 35ºC de las competencias contra la temperatura ambiente de 32ºC de la marca RivaCold.</dt>
+                </div>
+            </div>
+            <div class="col-5">
+                <h4>Listado de modelos equivalente Marca B</h4>
+                <select class="form-select" size="10" id="list_equivalencia" onchange="DatosEquivalencia()" style="overflow-y: auto;"></select>
+                <h5>Rango de tolerancia</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick="RangoEq(-1,'RangoNeg')" class="bi bi-file-arrow-down" style="padding:0;border:none;background:none;font-size:50px; vertical-align: middle;"></button>
+                        <input type="text" id="RangoNeg" value="-5%" onchange="SeleccionarModelo()" style="width: 60px;border:none;text-align:center;font-size:20px; vertical-align: middle;">
+                        <button onclick="RangoEq(+1,'RangoNeg')" class="bi bi-file-arrow-up" style="padding:0;border:none;background:none;font-size:50px; vertical-align: middle;"></button></div>
+                    <div class="col-6">
+                        <button onclick="RangoEq(-1,'RangoPos')" class="bi bi-file-arrow-down" style="padding:0;border:none;background:none;font-size:50px; vertical-align: middle;"></button>
+                        <input type="text" id="RangoPos" value="+15%" onchange="SeleccionarModelo()" style="width: 60px;border:none;text-align:center;font-size:20px; vertical-align: middle;">
+                        <button onclick="RangoEq(+1,'RangoPos')" class="bi bi-file-arrow-up" style="padding:0;border:none;background:none;font-size:50px; vertical-align: middle;"></button></div>
+                </div>
+            </div>
+
+            <nav class="navbar fixed-bottom" style="height:30px;">
+                <div class="position-absolute top-0 start-50 translate-middle">
+                    <button onclick="window.location.href='./Index.html '">
+                        <i class="bi bi-house-door" style="color: black;padding:0;border:none;background:none;font-size: 40px;">
+                        </i>
+                    </button>
+                </div>
+            </nav>
+
+            <div class="modal fade" id="Comparativa" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Comparativa según parametro</h5>
+                        </div>
+                        <div class="modal-body">
+                            Marca a comparar
+                            <select class="form-select" id="list_marcaB">
+                                <option value="RivaCold">RivaCold</option>
+                                <option value="IntarCon">IntarCon</option>
+                                <option value="Zanotti">Zanotti</option>
+                                <option value="Kide">Kide</option>
+                            </select> Tipo de comparación
+                            <select class="form-select" id="list_comparativa_typo" onchange="ComparativaParametro()">
+                                <option value="Eq">Equipo completo</option>
+                                <option value="Evap">Evaporador</option>
+                                <option value="Cond">Condensador</option>
+                                <option value="Central">Central</option>
+                            </select>Configuración 1
+                            <select class="form-select" id="Comparativo_Config1"></select>Configuración 2
+                            <select class="form-select" id="Comparativo_Config2"></select>
+                            <input type="text" id="Temp_Amb" placeholder="Temperatura Ambiente (°C o K)" style="width: 100%;">
+                            <input type="text" id="Temp_Cam" placeholder="Temperatura de Cámara (°C)" style="width: 100%;">
+                            <input type="text" id="Pot_Frig" placeholder="Potencia Frigorífica (W)" style="width: 100%;">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="RealizarComparativa()" data-bs-dismiss="modal">Búsqueda</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Buscador" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Buscado avanzado</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="FunctBusqueda" placeholder="Realizar Búsqueda" style="width: 100%;" oninput="Busqueda1('FunctBusqueda','FunctResultado')">
+                        <select class="form-select" size="10" id="FunctResultado" onchange="Seleccionar1('FunctResultado')"></select>
+                        <span class="input-group-text" id="BusquedaMarca" style="display:none"></span>
+                        <span class="input-group-text" id="BusquedaTipo" style="display:none"></span>
+                        <span class="input-group-text" id="BusquedaGama" style="display:none"></span>
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button " class="btn btn-primary" onclick="Aplicar1('FunctResultado','list_modelo')">Aplicar</button>
+                        <button type="button " class="btn btn-secondary " data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./Busqueda.js "></script>
+    <script src="./Funct2.js "></script>
+</body>
+
+</html>
